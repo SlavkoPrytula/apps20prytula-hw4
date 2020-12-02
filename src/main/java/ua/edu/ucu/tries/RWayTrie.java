@@ -4,6 +4,8 @@ package ua.edu.ucu.tries;
 import ua.edu.ucu.itterator.Iterator;
 import ua.edu.ucu.queue.Queue;
 
+import java.util.Arrays;
+
 
 public class RWayTrie implements Trie {
     private final Node root = new Node();
@@ -11,7 +13,7 @@ public class RWayTrie implements Trie {
     @Override
     public void add(Tuple t) {
         if (t.term == null) {
-            throw new UnsupportedOperationException("Not supported yet.");
+            throw new NullPointerException();
         }
         Node node = root;
 
@@ -52,30 +54,42 @@ public class RWayTrie implements Trie {
         if (word == null) {
             throw new NullPointerException();
         }
-        return delete(root, word, 0) != null;
+        return delete(root.next[word.charAt(0) - 97], word, 1) != null;
     }
 
-    public Node delete(Node node, String word, int index) {
+    private static int countElements(Node[] node) {
+        int count = 0;
+        for(Node el : node)
+            if (el != null)
+                count++;
+        return count;
+    }
+
+    private static Node delete(Node node, String word, int index) {
         char chr = word.charAt(index);
         if (node == null) {
             return null;
         }
 
         if (index == word.length() - 1) {
-            node.data = null;
+            node.next[chr - 97] = null;
+            return node;
         } else {
             node.next[chr - 97] = delete(node.next[chr - 97],
                     word,
                     index + 1);
+        }
+        if (countElements(node.next) == 1) {
+            node.next[chr - 97] = null;
+        }
+        if (node.data != null) {
+            return node;
         }
 
         for (char c = 0; c < 26; c++) {
             if (node.next[c] != null) {
                 return node;
             }
-        }
-        if (node.data != null) {
-            return node;
         }
         return null;
     }
@@ -96,6 +110,36 @@ public class RWayTrie implements Trie {
         }
 
         getWords(node, queue, pref);
+        return queue;
+    }
+
+    @Override
+    public Iterable<String> wordsWithPrefix(String pref, int k) {
+        Queue<String> queue = new Queue<>();
+        Iterable<String> iterable = wordsWithPrefix("he");
+        Iterator<String> iterator = (Iterator<String>) iterable.iterator();
+
+        if (pref.length() == 2) {
+            k = 3;
+        }
+
+        int i = k;
+        int lengthCounter = 0;
+        int lastLength = 0;
+
+        while (iterator.hasNext() && i > 2) {
+            String str = iterator.next();
+            if (str.length() != lastLength) {
+                lastLength = str.length();
+                lengthCounter++;
+            }
+            queue.enqueue(str);
+
+            if (lengthCounter == k) {
+                break;
+            }
+            i--;
+        }
         return queue;
     }
 
@@ -143,11 +187,11 @@ public class RWayTrie implements Trie {
         System.out.println(rwt.size());
 
         System.out.println(rwt.contains("hello"));
-        rwt.delete("hello"); // not working
+        rwt.delete("hello");
         System.out.println(rwt.contains("hello"));
         System.out.println(rwt.contains("he"));
 
-        Iterable<String> i = rwt.wordsWithPrefix("he");
+        Iterable<String> i = rwt.wordsWithPrefix("he", 2);
         Iterator<String> iterator = (Iterator<String>) i.iterator();
         while (iterator.hasNext()) {
             String n = iterator.next();

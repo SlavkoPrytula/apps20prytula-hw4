@@ -18,14 +18,19 @@ public class PrefixMatchesITTest {
     @Before
     public void init() {
         pm = new PrefixMatches(new RWayTrie());
-        pm.load("abc", "abce", "abcd", "abcde", "abcdef");
+        String[] strings = {"abc", "abce", "abcd", "abcde", "abcdef"};
+        pm.load(strings);
     }
 
     @Test
     public void testWordsWithPrefix_String() {
         String pref = "ab";
 
+
         Iterable<String> result = pm.wordsWithPrefix(pref);
+        while (result.iterator().hasNext()) {
+            System.out.println(result.iterator().next());
+        }
 
         String[] expResult = {"abc", "abce", "abcd", "abcde", "abcdef"};
 
