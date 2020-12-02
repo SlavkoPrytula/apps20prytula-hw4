@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import ua.edu.ucu.itterator.Iterator;
 import ua.edu.ucu.tries.RWayTrie;
 
 /**
@@ -28,9 +29,6 @@ public class PrefixMatchesITTest {
 
 
         Iterable<String> result = pm.wordsWithPrefix(pref);
-        while (result.iterator().hasNext()) {
-            System.out.println(result.iterator().next());
-        }
 
         String[] expResult = {"abc", "abce", "abcd", "abcde", "abcdef"};
 
@@ -43,8 +41,14 @@ public class PrefixMatchesITTest {
         int k = 3;
 
         Iterable<String> result = pm.wordsWithPrefix(pref, k);
+        Iterator<String> iterator = (Iterator<String>) result.iterator();
+
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
 
         String[] expResult = {"abc", "abce", "abcd", "abcde"};
+
 
         assertThat(result, containsInAnyOrder(expResult));
     }

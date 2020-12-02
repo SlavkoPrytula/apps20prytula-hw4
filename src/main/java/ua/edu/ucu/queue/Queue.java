@@ -35,4 +35,12 @@ public class Queue<E> implements Iterable<String> {
         NodeCollection nodes = new NodeCollection(q);
         return nodes.createIterator();
     }
+
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
+
+    public int size() {
+        return queue.size();
+    }
 }

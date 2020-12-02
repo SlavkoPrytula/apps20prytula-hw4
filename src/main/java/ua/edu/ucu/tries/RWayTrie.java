@@ -4,7 +4,9 @@ package ua.edu.ucu.tries;
 import ua.edu.ucu.itterator.Iterator;
 import ua.edu.ucu.queue.Queue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 
 public class RWayTrie implements Trie {
@@ -116,7 +118,7 @@ public class RWayTrie implements Trie {
     @Override
     public Iterable<String> wordsWithPrefix(String pref, int k) {
         Queue<String> queue = new Queue<>();
-        Iterable<String> iterable = wordsWithPrefix("he");
+        Iterable<String> iterable = wordsWithPrefix(pref);
         Iterator<String> iterator = (Iterator<String>) iterable.iterator();
 
         if (pref.length() == 2) {
@@ -127,7 +129,7 @@ public class RWayTrie implements Trie {
         int lengthCounter = 0;
         int lastLength = 0;
 
-        while (iterator.hasNext() && i > 2) {
+        while (iterator.hasNext()) {
             String str = iterator.next();
             if (str.length() != lastLength) {
                 lastLength = str.length();
@@ -138,7 +140,6 @@ public class RWayTrie implements Trie {
             if (lengthCounter == k) {
                 break;
             }
-            i--;
         }
         return queue;
     }
@@ -154,6 +155,7 @@ public class RWayTrie implements Trie {
             getWords(node.next[c], queue, pref + (char) (c + 97));
         }
     }
+
 
     @Override
     public int size() {
@@ -191,7 +193,7 @@ public class RWayTrie implements Trie {
         System.out.println(rwt.contains("hello"));
         System.out.println(rwt.contains("he"));
 
-        Iterable<String> i = rwt.wordsWithPrefix("he", 2);
+        Iterable<String> i = rwt.wordsWithPrefix("he", 3);
         Iterator<String> iterator = (Iterator<String>) i.iterator();
         while (iterator.hasNext()) {
             String n = iterator.next();
