@@ -1,25 +1,27 @@
 package ua.edu.ucu.queue;
 
 import ua.edu.ucu.item.NodeCollection;
-import ua.edu.ucu.itterator.NodeIterator;
+import ua.edu.ucu.itterator.Iterator;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class Queue<E> implements Iterable<String> {
-    private final List<String> queue;
-    NodeCollection nodes;
+    public ArrayList<String> queue;
 
     public Queue() {
         this.queue = new ArrayList<>();
     }
 
-    public Object peek() {
+    public Queue(ArrayList<String> arrayList) {
+        this.queue = new ArrayList<>();
+        queue.addAll(arrayList);
+    }
+
+    public String peek() {
         return queue.get(0);
     }
 
-    public Object dequeue() {
+    public String dequeue() {
         return queue.remove(0);
     }
 
@@ -29,8 +31,8 @@ public class Queue<E> implements Iterable<String> {
 
     @Override
     public Iterator<String> iterator() {
-//        NodeIterator iterator = new NodeIterator(queue);
-//        return (Iterator<String>) nodes.createIterator();
-        return null;
+        Queue<String> q = new Queue<>(queue);
+        NodeCollection nodes = new NodeCollection(q);
+        return nodes.createIterator();
     }
 }

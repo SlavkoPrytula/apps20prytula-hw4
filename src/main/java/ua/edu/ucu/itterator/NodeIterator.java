@@ -1,20 +1,20 @@
 package ua.edu.ucu.itterator;
+
 import ua.edu.ucu.queue.Queue;
 
-import java.util.List;
 
 public class NodeIterator implements Iterator<String> {
-    List<String> trie;
+    Queue<String> queue;
 
-    public NodeIterator(List<String> obj) {
-        this.trie = obj;
+    public NodeIterator(Queue<String> obj) {
+        this.queue = obj;
     }
 
-    public Object next() {
-        return null;
+    public String next() {
+        return queue.dequeue();
     }
 
     public boolean hasNext() {
-        return true;
+        return queue.queue.size() > 0;
     }
 }

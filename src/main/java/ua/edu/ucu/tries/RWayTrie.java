@@ -1,6 +1,7 @@
 package ua.edu.ucu.tries;
 
 
+import ua.edu.ucu.itterator.Iterator;
 import ua.edu.ucu.queue.Queue;
 
 
@@ -106,7 +107,6 @@ public class RWayTrie implements Trie {
             queue.enqueue(pref);
         }
         for (char c = 0; c < 26; c++) {
-            System.out.println();
             getWords(node.next[c], queue, pref + (char) (c + 97));
         }
     }
@@ -147,9 +147,11 @@ public class RWayTrie implements Trie {
         System.out.println(rwt.contains("hello"));
         System.out.println(rwt.contains("he"));
 
-        Iterable<String> i = rwt.wordsWithPrefix("hi");
-        for (String str : i) {
-            System.out.println(str);
+        Iterable<String> i = rwt.wordsWithPrefix("he");
+        Iterator<String> iterator = (Iterator<String>) i.iterator();
+        while (iterator.hasNext()) {
+            String n = iterator.next();
+            System.out.println(n);
         }
 
 

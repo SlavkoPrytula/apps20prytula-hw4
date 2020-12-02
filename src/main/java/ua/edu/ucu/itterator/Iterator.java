@@ -1,6 +1,6 @@
 package ua.edu.ucu.itterator;
 
-public interface Iterator<E> {
+public interface Iterator<E> extends java.util.Iterator<String> {
     boolean hasNext();
-    Object next();
+    String next();
 }
