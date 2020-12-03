@@ -2,8 +2,8 @@ package ua.edu.ucu.tries;
 
 public class Node {
     static final int DEFAULT_CAPACITY = 26;
-    public Object index;
-    public Object data;
+    private Object index = null;
+    private Object data = null;
     private final Node[] next = new Node[DEFAULT_CAPACITY];
 
     public Object getIndex() {
