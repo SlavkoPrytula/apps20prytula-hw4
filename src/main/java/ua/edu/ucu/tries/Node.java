@@ -14,12 +14,12 @@ public class Node {
         return data;
     }
 
-    public void setIndex(Object index) {
-        this.index = index;
+    public void setIndex(Object ind) {
+        this.index = ind;
     }
 
-    public void setData(Object data) {
-        this.data = data;
+    public void setData(Object dt) {
+        this.data = dt;
     }
 
     public Node[] getNext() {
