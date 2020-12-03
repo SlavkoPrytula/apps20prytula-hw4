@@ -11,8 +11,6 @@ public interface Trie {
     Iterable<String> words();
 
     Iterable<String> wordsWithPrefix(String pref);
-
-    Iterable<String> wordsWithPrefix(String pref, int k);
     
     int size();
 }
