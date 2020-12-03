@@ -25,7 +25,7 @@ public class PrefixMatches {
         for (String str : strings) {
             String[] s = str.split("\\s+");
             for (String word : s) {
-                if (word.length() >= 2) {
+                if (word.length() >= 2 && !trie.contains(word)) {
                     Tuple tuple = new Tuple(word, word.length());
                     trie.add(tuple);
                     counter++;

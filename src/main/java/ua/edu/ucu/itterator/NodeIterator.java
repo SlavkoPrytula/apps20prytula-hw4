@@ -15,6 +15,7 @@ public class NodeIterator implements Iterator<String> {
     }
 
     public boolean hasNext() {
-        return queue.queue.size() > 0;
+        return queue.queue.size() > 0
+                && queue.peek() != null;
     }
 }
