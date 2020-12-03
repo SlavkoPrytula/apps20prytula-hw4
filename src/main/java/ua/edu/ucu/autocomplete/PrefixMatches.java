@@ -11,9 +11,8 @@ import java.util.ArrayList;
  * @author andrii
  */
 public class PrefixMatches {
-    private final Trie trie;
     static final int DEFAULT_K = 3;
-
+    private final Trie trie;
 
     public PrefixMatches(Trie trie) {
         this.trie = trie;
@@ -54,12 +53,12 @@ public class PrefixMatches {
 
     public Iterable<String> wordsWithPrefix(String pref,
                                             int k) {
-        int new_k = k;
+        int newK = k;
         if (k < 1) {
             return null;
         }
         if (pref.length() == 2) {
-            new_k = DEFAULT_K;
+            newK = DEFAULT_K;
         }
 
         ArrayList<String> result = new ArrayList<>();
@@ -68,7 +67,7 @@ public class PrefixMatches {
                 (Iterator<String>) words.iterator();
         while (iterator.hasNext()) {
             String word = iterator.next();
-            if (word.length() < pref.length() + new_k) {
+            if (word.length() < pref.length() + newK) {
                 result.add(word);
             }
         }

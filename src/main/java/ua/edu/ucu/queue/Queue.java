@@ -2,7 +2,6 @@ package ua.edu.ucu.queue;
 
 import ua.edu.ucu.item.NodeCollection;
 import ua.edu.ucu.itterator.Iterator;
-import ua.edu.ucu.tries.RWayTrie;
 
 import java.util.ArrayList;
 
