@@ -88,12 +88,6 @@ public class RWayTrie implements Trie {
         if (node.getData() != null) {
             return node;
         }
-
-        for (char c = 0; c < node.getDefaultCapacity(); c++) {
-            if (node.getNext()[c] != null) {
-                return node;
-            }
-        }
         return null;
     }
 
