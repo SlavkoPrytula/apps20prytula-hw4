@@ -26,7 +26,7 @@ public class PrefixMatchesITTest {
     @Test(expected = NullPointerException.class)
     public void testBadLoad() {
         PrefixMatches pm1 = new PrefixMatches(new RWayTrie());
-        pm1.load();
+        pm1.load(null);
     }
 
     @Test

@@ -5,7 +5,6 @@ import ua.edu.ucu.tries.Trie;
 import ua.edu.ucu.tries.Tuple;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -20,7 +19,7 @@ public class PrefixMatches {
     }
 
     public int load(String... strings) {
-        if (strings == null || strings.length == 0) {
+        if (strings == null) {
             throw new NullPointerException();
         }
         int counter = 0;
