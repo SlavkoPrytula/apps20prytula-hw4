@@ -2,11 +2,12 @@ package ua.edu.ucu.queue;
 
 import ua.edu.ucu.item.NodeCollection;
 import ua.edu.ucu.itterator.Iterator;
+import ua.edu.ucu.tries.RWayTrie;
 
 import java.util.ArrayList;
 
 public class Queue<E> implements Iterable<String> {
-    public ArrayList<String> queue;
+    private final ArrayList<String> queue;
 
     public Queue() {
         this.queue = new ArrayList<>();
@@ -27,6 +28,10 @@ public class Queue<E> implements Iterable<String> {
 
     public void enqueue(String e) {
         queue.add(e);
+    }
+
+    public int size() {
+        return queue.size();
     }
 
     @Override

@@ -5,7 +5,7 @@ import ua.edu.ucu.itterator.NodeIterator;
 import ua.edu.ucu.queue.Queue;
 
 public class NodeCollection implements Collection {
-     Queue<String> nodes;
+     private final Queue<String> nodes;
 
     public NodeCollection(Queue<String> q) {
         this.nodes = q;

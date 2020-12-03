@@ -85,7 +85,7 @@ public class PrefixMatchesITTest {
 
     @Test
     public void testWordsWithPrefix_String_Size() {
-        int result = pm.size();;
+        int result = pm.size();
         int expResult = 5;
 
         assertEquals(result, expResult);

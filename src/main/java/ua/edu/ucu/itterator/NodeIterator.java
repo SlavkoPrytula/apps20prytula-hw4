@@ -4,7 +4,7 @@ import ua.edu.ucu.queue.Queue;
 
 
 public class NodeIterator implements Iterator<String> {
-    Queue<String> queue;
+    private final Queue<String> queue;
 
     public NodeIterator(Queue<String> obj) {
         this.queue = obj;
@@ -15,7 +15,7 @@ public class NodeIterator implements Iterator<String> {
     }
 
     public boolean hasNext() {
-        return queue.queue.size() > 0
+        return queue.size() > 0
                 && queue.peek() != null;
     }
 }

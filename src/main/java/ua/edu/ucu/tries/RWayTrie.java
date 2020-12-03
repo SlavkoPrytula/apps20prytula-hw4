@@ -3,6 +3,7 @@ package ua.edu.ucu.tries;
 import ua.edu.ucu.queue.Queue;
 
 public class RWayTrie implements Trie {
+    static final int ASCII_SUBTRACT = 97;
     private final Node root = new Node();
 
     @Override
@@ -14,16 +15,16 @@ public class RWayTrie implements Trie {
 
         for (char chr : t.term.toCharArray()) {
             Node nextNode = new Node();
-            if (node.next[chr - 97] != null) {
-                node = node.next[chr - 97];
+            if (node.getNext()[chr - ASCII_SUBTRACT] != null) {
+                node = node.getNext()[chr - ASCII_SUBTRACT];
                 continue;
             }
-            node.next[chr - 97] = nextNode;
-            nextNode.data = chr;
+            node.getNext()[chr - ASCII_SUBTRACT] = nextNode;
+            nextNode.setData(chr);
             node = nextNode;
 
             if (chr == t.term.charAt(t.term.length() - 1)) {
-                node.index = t.weight;
+                node.setIndex(t.weight);
             }
         }
     }
@@ -33,10 +34,12 @@ public class RWayTrie implements Trie {
         Node node = root;
 
         for (char chr : word.toCharArray()) {
-            if (node.next[chr - 97] != null
-                    && node.next[chr - 97].data != null
-                    && node.next[chr - 97].data.equals(chr)) {
-                node = node.next[chr - 97];
+            if (node.getNext()[chr - ASCII_SUBTRACT] != null
+                    && node.getNext()[chr
+                    - ASCII_SUBTRACT].getData() != null
+                    && node.getNext()[chr
+                    - ASCII_SUBTRACT].getData().equals(chr)) {
+                node = node.getNext()[chr - ASCII_SUBTRACT];
             } else {
                 return false;
             }
@@ -49,15 +52,18 @@ public class RWayTrie implements Trie {
         if (word == null) {
             throw new NullPointerException();
         }
-        return delete(root.next[word.charAt(0) - 97],
+        return delete(root.getNext()[word.charAt(0)
+                        - ASCII_SUBTRACT],
                 word, 1) != null;
     }
 
     private static int countElements(Node[] node) {
         int count = 0;
-        for(Node el : node)
-            if (el != null)
+        for (Node el : node) {
+            if (el != null) {
                 count++;
+            }
+        }
         return count;
     }
 
@@ -68,22 +74,23 @@ public class RWayTrie implements Trie {
         }
 
         if (index == word.length() - 1) {
-            node.next[chr - 97] = null;
+            node.getNext()[chr - ASCII_SUBTRACT] = null;
             return node;
         } else {
-            node.next[chr - 97] = delete(node.next[chr - 97],
+            node.getNext()[chr - ASCII_SUBTRACT]
+                    = delete(node.getNext()[chr - ASCII_SUBTRACT],
                     word,
                     index + 1);
         }
-        if (countElements(node.next) == 1) {
-            node.next[chr - 97] = null;
+        if (countElements(node.getNext()) == 1) {
+            node.getNext()[chr - ASCII_SUBTRACT] = null;
         }
-        if (node.data != null) {
+        if (node.getData() != null) {
             return node;
         }
 
-        for (char c = 0; c < 26; c++) {
-            if (node.next[c] != null) {
+        for (char c = 0; c < node.getDefaultCapacity(); c++) {
+            if (node.getNext()[c] != null) {
                 return node;
             }
         }
@@ -100,8 +107,8 @@ public class RWayTrie implements Trie {
         Queue<String> queue = new Queue<>();
         Node node = root;
         for (char chr : pref.toCharArray()) {
-            if (node.next[chr - 97] != null) {
-                node = node.next[chr - 97];
+            if (node.getNext()[chr - ASCII_SUBTRACT] != null) {
+                node = node.getNext()[chr - ASCII_SUBTRACT];
             }
         }
         getWords(node, queue, pref);
@@ -113,12 +120,12 @@ public class RWayTrie implements Trie {
         if (node == null) {
             return;
         }
-        if (node.index != null) {
+        if (node.getIndex() != null) {
             queue.enqueue(pref);
         }
-        for (char c = 0; c < 26; c++) {
-            getWords(node.next[c], queue,
-                    pref + (char) (c + 97));
+        for (char c = 0; c < node.getDefaultCapacity(); c++) {
+            getWords(node.getNext()[c], queue,
+                    pref + (char) (c + ASCII_SUBTRACT));
         }
     }
 
@@ -132,11 +139,11 @@ public class RWayTrie implements Trie {
             return 0;
         }
         int counter = 0;
-        if (node.index != null) {
+        if (node.getIndex() != null) {
             counter++;
         }
-        for (char c = 0; c < 26; c++) {
-            counter += size(node.next[c]);
+        for (char c = 0; c < node.getDefaultCapacity(); c++) {
+            counter += size(node.getNext()[c]);
         }
         return counter;
     }
